@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZigZag</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background: black;
+        }
+        .main{
+            background-color: white;
+            width: 70%;
+            margin: auto;
+            height: 100vh;
+            padding: 100px 150px;
+        }
+        .container{
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr 1fr;
+            row-gap: 50px;
+            column-gap: 60px;
+            justify-content: center;
+            grid-template-areas :   "a b b c"
+                                    "d d e f"
+                                    "g h i i";
+        }
+        .box{
+            background-color: orange;
+            height: 140px;
+            width: 100%;
+            border-radius: 5px;
+        }
+        .box1{
+            grid-area: a;
+        }
+        .box2{
+            /* grid-column-start: 2;
+            grid-column-end: 4; */
+            grid-area: b;
+        }
+        .box3{
+            grid-area: c;
+        }
+        .box4{
+            /* grid-column-start: 1;
+            grid-column-end: 3; */
+            grid-area: d;
+        }
+        .box5{
+            grid-area: e;
+        }
+        .box6{
+            grid-area: f;
+        }
+        .box7{
+            grid-area: g;
+        }
+        .box8{
+            grid-area: h;
+        }
+        .box9{
+            /* grid-column-start: 3;
+            grid-column-end: 5; */
+            grid-area: i;
+        }
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class = 'container'>
+            <div class = 'box box1'></div>
+            <div class = 'box box2'></div>
+            <div class = 'box box3'></div>
+            <div class = 'box box4'></div>
+            <div class = 'box box5'></div>
+            <div class = 'box box6'></div>
+            <div class = 'box box7'></div>
+            <div class = 'box box8'></div>
+            <div class = 'box box9'></div>
+        </div>
+    </div>
+</body>
+</html>

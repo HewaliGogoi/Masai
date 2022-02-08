@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instamojo</title>
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+    *{
+        /* border: 1px solid red; */
+        margin: 0px;
+        padding: 0;
+        box-sizing: border-box;
+        /* text-align: center; */
+        font-family: roboto;
+    }
+    body{
+        text-align: center;
+        margin: 0px 10px;
+        background-color: black;
+        font-family: 'Roboto', sans-serif;
+    }
+    .super{
+        /* border: 1px solid red; */
+        width: 1100px;
+        background-color: white;
+        margin: auto;
+        height: 100vh;
+    }
+    .div1{
+        /* border: 1px solid red; */
+        color: rgba(72,41,68,255);
+        padding : 8px
+    }
+    .border{
+        width: 100px;
+        height: 2px;
+        margin: auto;
+        background-color: rgba(72,41,68,255);
+    }
+    .border + div{
+        /* border: 1px solid red; */
+        color: rgba(72,41,68,255);
+    }
+    .div2{
+        /* border: 1px solid red; */
+        background-color: white;
+        padding: 20px;
+        width: 95%;
+        margin: auto;
+    }
+    .div2 > div{
+        /* border: 2px solid red; */
+        display: inline-block;
+        width : 245px;
+        /* font-size: 15px; */
+        /* margin: 0px 22px; */
+        padding: 0px;
+        vertical-align: top;
+    }
+    li{
+        list-style: none;
+        text-align: left;
+        margin: 20px;
+    }
+    li img{
+        width: 100px;
+        margin-bottom: -8px;
+    }
+    .super > div:first-child{
+        background-color: rgba(251,248,255,255);
+        /* border: 2px solid greenyellow; */
+
+    }
+    li:first-child{
+        color: rgba(147,148,158,255);
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .super p, .div1 h1{
+        margin: 15px 0px;
+    }
+    .div2 div:nth-child(2) li{
+        color: darkorange;
+    }
+    li:nth-child(2), li:nth-child(3), li:nth-child(4){
+        font-size : 13px;
+        font-weight: 700;
+    }
+</style>
+<body>
+    <div class = 'super'>
+        <div>
+            <div class = 'div1'><h1>Compare Pricing</h1></div>
+            <div class = 'border'></div>
+            <div><p>Instamojo's overall costs compared to other modern platforms & traditional gateways.</p></div>
+            <div class = 'div2'>
+                <div>
+                    <ul>
+                        <li>FEES & OTHER CHARGES</li>
+                        <li>Setup Fee</li>
+                        <li>Annual Maintainance</li>
+                        <li>Minimum Commitment</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><img src="https://www.instamojo.com/wp-content/uploads/2021/03/logo_instamojo.png.webp" alt=""></li>
+                        <li>Free</li>
+                        <li>Free</li>
+                        <li>No Commitment</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>MODERN PLATFORMS</li>
+                        <li>₹0 to ₹10,000 / year</li>
+                        <li>₹10,000 to ₹25,000 / year</li>
+                        <li>Varies</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>TRADITIONAL GATEWAYS</li>
+                        <li>₹25,000 / year</li>
+                        <li>₹10,000 to ₹25,000 / year</li>
+                        <li>Upto ₹1,00,000 / month</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class = 'div1'><h1>No Hidden Costs</h1></div>
+            <div class = 'border'></div>
+            <div><p>Cost of time and effort spent increases hidden costs. But not on Instamojo.</p></div>
+            <div class = 'div2'>
+                <div>
+                    <ul>
+                        <li>COSTS</li>
+                        <li>Time to Get Started</li>
+                        <li>Developer Costs For Integration</li>
+                        <li>Local Costs of Aggreemnts</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li><img src="https://www.instamojo.com/wp-content/uploads/2021/03/logo_instamojo.png.webp" alt=""></li>
+                        <li>3-5 minutes</li>
+                        <li>Not Needed</li>
+                        <li>Not Needed</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>MODERN PLATFORMS</li>
+                        <li>1-4 weeks</li>
+                        <li>₹1 Lakh+</li>
+                        <li>Varies</li>
+                    </ul>
+                </div>
+                <div>
+                    <ul>
+                        <li>TRADITIONAL GATEWAYS</li>
+                        <li>4-8 weeks</li>
+                        <li>₹1 Lakh+</li>
+                        <li>₹1 Lakh+</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
