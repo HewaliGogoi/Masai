@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            margin : auto;
+            margin-top: 2%;
+            /* border: 2px solid black; */
+            width : 35%;
+            align-items: center;
+            height: inherit;
+            font-family: sans-serif;
+        }
+        .main > div:first-child, .main > div:nth-child(2){
+            /* border: 2px solid black; */
+            width: 25%;
+            margin-left: 17%;
+            height: 150px;
+            text-align: center;
+            display: inline-block;
+            font-size: 150%;
+        }
+        .main > div:first-child button, .main > div:nth-child(2) button{
+            width: 100%;
+            height: 70%;
+            font-size: 150%;
+            font-weight: 500;
+            border: 2px solid black;
+            
+        }
+        .main > div:first-child button{
+            background-color: red;
+        }
+        .main > div:nth-child(2) button{
+            background-color: green;
+        }
+        #score{
+            /* border: 2px solid black; */
+            width: 50%;
+            margin: auto;
+            text-align: center;
+            font-size: 150%;
+        }
+        #input{
+            border: 2px solid black;
+            display: block;
+            margin: auto;
+            width: 100%;
+            height: 70px;
+            background-color: lightgray;
+        }
+        #numbers{
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-template-rows: auto auto auto auto;
+            /* border: 2px solid black; */
+            width: 95%;
+            margin: auto;
+            padding-top: 5%;
+        }
+        #numbers button{
+            border: 2px solid black;
+            margin: 13%;
+            width: 65%;
+            height: 55px;
+            font-size: 100%;
+            font-weight: 500;
+        }
+        #numbers button:first-child, #numbers button:nth-child(3), #numbers button:nth-child(7), #numbers button:nth-child(9){
+            background-color: olivedrab;
+        }
+        #numbers button:nth-child(even), #numbers button:nth-child(5){
+            background-color: orangered;
+        }
+        .btn0{
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+        #score > button{
+            background-color: black;
+            color: white;
+            width: 100%;
+            height: 70px;
+            font-size: 150%;
+            margin-top: 10%;
+        }
+    </style>
+</head>
+<body>
+    <div class = 'main'>
+        <div>
+            <button value="41" id = 'min'>43</button>
+            MIN
+        </div>
+        <div>
+            <button value="2019" id = 'max'>2019</button>
+            MAX
+        </div>
+        <div id = 'score'>
+            SCORE
+            <div id = 'input'></div>
+            <div id = 'numbers'>
+                <button onclick = 'add(1)' class = 'btn1'>1</button>
+                <button onclick = 'add(2)' class = 'btn2'>2</button>
+                <button onclick = 'add(3)' class = 'btn3'>3</button>
+                <button onclick = 'add(4)' class = 'btn4'>4</button>
+                <button onclick = 'add(5)' class = 'btn5'>5</button>
+                <button onclick = 'add(6)' class = 'btn6'>6</button>
+                <button onclick = 'add(7)' class = 'btn7'>7</button>
+                <button onclick = 'add(8)' class = 'btn8'>8</button>
+                <button onclick = 'add(9)' class = 'btn9'>9</button>
+                <button onclick = 'add(0)' class = 'btn0' style="background-color: blueviolet;">0</button>
+            </div>
+            <button id = 'enter' onclick="answer()">ENTER</button>
+        </div>
+    </div>
+    <script>
+        var input = document.getElementById('input');
+        function add(x){
+            input.textContent += x;
+        }
+        // var btn1 = document.querySelector('.btn1');
+        // var btn2 = document.querySelector('.btn2');
+        // var btn3 = document.querySelector('.btn3');
+        // var btn4 = document.querySelector('.btn4');
+        // var btn5 = document.querySelector('.btn5');
+        // var btn6 = document.querySelector('.btn6');
+        // var btn7 = document.querySelector('.btn7');
+        // var btn8 = document.querySelector('.btn8');
+        // var btn9 = document.querySelector('.btn9');
+        // var btn0 = document.querySelector('.btn0');
+
+        // btn1.addEventListener('click', function(){
+        //     input.textContent += btn1.textContent;
+        // });
+        // btn2.addEventListener('click', function(){
+        //     input.textContent += btn2.textContent;
+        // });
+        // btn3.addEventListener('click', function(){
+        //     input.textContent += btn3.textContent;
+        // });
+        // btn4.addEventListener('click', function(){
+        //     input.textContent += btn4.textContent;
+        // });
+        // btn5.addEventListener('click', function(){
+        //     input.textContent += btn5.textContent;
+        // });
+        // btn6.addEventListener('click', function(){
+        //     input.textContent += btn6.textContent;
+        // });
+        // btn7.addEventListener('click', function(){
+        //     input.textContent += btn7.textContent;
+        // });
+        // btn8.addEventListener('click', function(){
+        //     input.textContent += btn8.textContent;
+        // });
+        // btn9.addEventListener('click', function(){
+        //     input.textContent += btn9.textContent;
+        // });
+        // btn0.addEventListener('click', function(){
+        //     input.textContent += btn0.textContent;
+        // });
+
+        var min = document.querySelector('#min');
+        var max = document.querySelector('#max');
+        var ent = document.querySelector('#enter');
+        function answer(){
+            if(input.textContent != ''){
+                if(+input.textContent > +max.textContent){
+                    max.textContent = input.textContent;
+                }
+                if(+input.textContent < +min.textContent){
+                    min.textContent = input.textContent;
+                }
+                input.textContent = '';
+                }
+        }
+    </script>
+</body>
+</html>
