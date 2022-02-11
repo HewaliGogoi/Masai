@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Play</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            background-color: rgba(53,152,219,255);
+        }
+        button{
+            width: 10%;
+            height: 70px;
+            font-size: 100%;
+            border-radius: 10%;
+            background-color: rgba(193,57,43,255);
+            margin: 40% 0% 0% 87%;
+        }
+        /* .green{
+            background-color: rgba(39,174,97,255);
+        } */
+        /* button:hover{
+            background-color: rgba(39,174,97,255);
+        } */
+    </style>
+</head>
+<body>
+    <!-- <button onmouseover="change()" onmouseleave="original()">SUBMIT</button> -->
+    <button>SUBMIT</button>
+</body>
+<script>
+    let btn = document.querySelector('button');
+    btn.addEventListener('mouseover', function(){
+        btn.style.backgroundColor = 'rgba(39,174,97,255)';
+    });
+    btn.addEventListener('mouseleave', function(){
+        btn.style.backgroundColor = 'rgba(193,57,43,255)';
+    })
+</script>
+</html>
