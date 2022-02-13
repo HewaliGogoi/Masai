@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body > div:first-child{
+            border: 2px solid black;
+            margin: 1% 1% 0% 1%;
+            padding: 1% 1%;
+            text-align: right;
+        }
+        a{
+            margin: 1%;
+            color: black;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        h1, h2{
+            margin : 2%;
+        }
+        body div:nth-child(4){
+            display: flex;
+            justify-content: center;
+        }
+        body div:nth-child(4) img{
+            width: 15%;
+            /* border: 2px solid black; */
+        }
+        #movies{
+            /* border: 2px solid blue; */
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        #movies > div{
+            width: 30%;
+            height: 300px;
+            margin-top: 5%;
+        }
+        #movies > div > img{
+            /* margin: 2%; */
+            width : 90%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="">Home</a>
+        <a href="">Log In</a>
+        <a href="">Sign Up</a>
+    </div>
+    <h1>Home Page</h1>
+    <h2>Movie List</h2>
+    <div>
+        <img src="" id = 'img' alt="">
+    </div>
+    <div id = 'movies'></div>
+</body>
+<script>
+    let arr = ['https://amc-theatres-res.cloudinary.com/image/upload/f_auto,fl_lossy,h_465,q_auto,w_310/v1638549265/amc-cdn/production/2/movies/66500/66520/PosterDynamic/132670.jpg', 'https://lumiere-a.akamaihd.net/v1/images/p_blackwidow_21043_v2_6d1b73b8.jpeg', 'https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg', 'https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/uncharted_onesheet_1400x2100_v2.jpg?itok=ZMTaaGA5', 'https://cdn.pastemagazine.com/www/articles/2022/01/14/scream-2022-poster.jpg', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhH6pWjvv7EvvkGuVge7flEJS1-JEqxljjFA&usqp=CAU', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiBRumYPK9LLgi1LxyxClBoKLddC8Y62M52g&usqp=CAU', 'https://regalcdn.azureedge.net/REG/DeathontheNile/HO00010641/TV_SmallPosterImage/20220201-152324088.jpg'];
+    function slide(){
+        let i = 0;
+        setInterval(function(){
+            let img = document.getElementById('img');
+            if(i == arr.length){
+                i = 0;
+            }
+            img.src = arr[i];
+            i++;
+        }, 2000);
+    }
+    slide();
+
+    let movies = [ { name: "Godfather", release_date: "24th Mar,1972", poster: "https://amc-theatres-res.cloudinary.com/image/upload/f_auto,fl_lossy,h_465,q_auto,w_310/v1638549265/amc-cdn/production/2/movies/66500/66520/PosterDynamic/132670.jpg", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://lumiere-a.akamaihd.net/v1/images/p_blackwidow_21043_v2_6d1b73b8.jpeg", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://lumiere-a.akamaihd.net/v1/images/p_aladdin2019_17638_d53b09e6.jpeg", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://www.sonypictures.com/sites/default/files/styles/max_560x840/public/title-key-art/uncharted_onesheet_1400x2100_v2.jpg?itok=ZMTaaGA5", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://cdn.pastemagazine.com/www/articles/2022/01/14/scream-2022-poster.jpg", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhH6pWjvv7EvvkGuVge7flEJS1-JEqxljjFA&usqp=CAU", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://regalcdn.azureedge.net/REG/DeathontheNile/HO00010641/TV_SmallPosterImage/20220201-152324088.jpg", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiBRumYPK9LLgi1LxyxClBoKLddC8Y62M52g&usqp=CAU", IMDB_rating: 10 }, 
+    { name: "Godfather", release_date: "24th Mar,1972", poster: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/judas-and-the-black-messiah-1620077373.jpg?crop=1xw:1xh;center,top&resize=480:*", IMDB_rating: 10 }];
+
+    let div = document.getElementById('movies');
+    let i = 0;
+    movies.forEach((element) => {
+        console.log(element.name);
+        let innerDiv = document.createElement('div');
+        let img = document.createElement('img')
+        img.src = element.poster;
+        innerDiv.append(img);
+        div.append(innerDiv);
+    });
+
+</script>
+</html>

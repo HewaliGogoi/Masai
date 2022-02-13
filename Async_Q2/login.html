@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body > div{
+            border: 2px solid black;
+            margin: 1% 1% 0% 1%;
+            padding: 1% 1%;
+            text-align: right;
+        }
+        a{
+            margin: 1%;
+            color: black;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        input{
+            display: block;
+        }
+        form{
+            margin: 2%;
+        }
+        h1{
+            margin: 2%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="index.html">Home</a>
+        <a href="login.html">Log In</a>
+        <a href="">Sign Up</a>
+    </div>
+    <h1>Log In Page</h1>
+    <form id = 'form'>
+        Email ID : <input id = 'email' type="email">
+        Password : <input id = 'pwd' type="password">
+        <button type = 'submit'>Log In</button>
+    </form>
+</body>
+<script>
+    var email = "dasb@gmail.com";
+    var password = 'error@504';
+    function submit(event){
+        event.preventDefault();
+        let mail = document.getElementById('email').value;
+        let pwd = document.getElementById('pwd').value;
+        if(mail == email && pwd == password){
+            window.location.href = "file:///E:/MyFolder/Tech/HTML_&_CSS/Unit_4_Assignments/Async_Q2/index.html";
+        }else if(mail == email && pwd != password){
+            alert('Please enter a valid password');
+        }else{
+            alert('Please enter a valid email');
+        }
+    }
+    let form = document.getElementById('form');
+    form.addEventListener('submit', submit);
+</script>
+</html>
