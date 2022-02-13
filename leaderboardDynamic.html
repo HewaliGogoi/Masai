@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leaderboard</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main{
+            margin : auto;
+            margin-top: 2%;
+            border: 2px solid black;
+            width : 35%;
+            align-items: center;
+            height: inherit;
+            font-family: sans-serif;
+            text-align: center;
+        }
+        .main > p{
+            font-size: 130%;
+        }
+        #total{
+            border: 2px solid black;
+            display: block;
+            margin: 3% auto 3% auto;
+            width: 40%;
+            height: 60px;
+            background-color: lightgray;
+        }
+        .main > div:nth-child(3){
+            display: flex;
+            /* border: 2px solid blue; */
+            width: 50%;
+            margin: auto;
+            margin-bottom: 3%;
+        }
+        .Min, .Max{
+            /* border: 2px solid black; */
+            width: 30%;
+            margin-top: 5% ;
+            height: 70px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            font-size: 120%;
+        }
+        .Max{
+            margin-left: 40%;
+        }
+        #min, #max{
+            width: 100%;
+            height: 70%;
+            font-size: 150%;
+            font-weight: 500;
+            border: 2px solid black;
+            
+        }
+        #min{
+            background-color: red;
+        }
+        #max{
+            background-color: green;
+        }
+        #score{
+            /* border: 2px solid black; */
+            width: 40%;
+            margin: auto;
+            text-align: center;
+            font-size: 130%;
+        }
+        #input{
+            border: 2px solid black;
+            display: block;
+            margin: 3% auto;
+            width: 100%;
+            height: 60px;
+            background-color: lightgray;
+        }
+        #numbers{
+            display: grid;
+            grid-template-columns: auto auto auto;
+            grid-template-rows: auto auto auto auto;
+            /* border: 2px solid black; */
+            width: 95%;
+            margin: auto;
+            padding-top: 5%;
+        }
+        #numbers button{
+            border: 2px solid black;
+            margin: 13%;
+            width: 65%;
+            height: 45px;
+            font-size: 100%;
+            font-weight: 500;
+        }
+        #numbers button:first-child, #numbers button:nth-child(3), #numbers button:nth-child(7), #numbers button:nth-child(9){
+            background-color: olivedrab;
+        }
+        #numbers button:nth-child(even), #numbers button:nth-child(5){
+            background-color: orangered;
+        }
+        .btn0{
+            grid-column-start: 2;
+            grid-column-end: 3;
+        }
+        #enter{
+            background-color: black;
+            color: white;
+            width: 100%;
+            height: 50px;
+            font-size: 100%;
+            margin-top: 10%;
+        }
+        body > div:nth-child(2){
+            margin-top: 2%;
+            margin-right: 5%;
+            width: 35%;
+            text-align: center;
+            font-size: 150%;
+        }
+        body > div:nth-child(2) div{
+            /* border: 2px solid black; */
+            width: 30%;
+            margin: 65% auto 0% auto;
+        }
+        body > div:nth-child(2) button{
+            width: 100%;
+            height: 50px;
+            margin: 12% 0% 0% 0%;
+            background-color: black;
+            color: white;
+            font-size: 70%;
+        }
+        #scoreBoard{
+            /* border: 2px solid black; */
+            margin: 3% auto;
+            font-size: 70%;
+        }
+        #scoreBoard > p{
+            /* border: 2px solid blue; */
+            padding-top: 3%;
+        }
+    </style>
+</head>
+<body style="display: flex;">
+    <div class = 'main'>
+        <p>TOTAL</p>
+        <div id = 'total'></div>
+        <div>
+            <div class = 'Min'><button value = 'Infinity' id = 'min'></button>MIN</div>
+            <div class = 'Max'><button id = 'max'></button>MAX</div>
+        </div>
+        <div id = 'score'>
+            SCORE
+            <div id = 'input'></div>
+            <div id = 'numbers'>
+                <button onclick = 'add(1)' class = 'btn1'>1</button>
+                <button onclick = 'add(2)' class = 'btn2'>2</button>
+                <button onclick = 'add(3)' class = 'btn3'>3</button>
+                <button onclick = 'add(4)' class = 'btn4'>4</button>
+                <button onclick = 'add(5)' class = 'btn5'>5</button>
+                <button onclick = 'add(6)' class = 'btn6'>6</button>
+                <button onclick = 'add(7)' class = 'btn7'>7</button>
+                <button onclick = 'add(8)' class = 'btn8'>8</button>
+                <button onclick = 'add(9)' class = 'btn9'>9</button>
+                <button onclick = 'add(0)' class = 'btn0' style="background-color: blueviolet;">0</button>
+            </div>
+            <button id = 'enter' onclick="enter()">ENTER</button>
+        </div>
+    </div>
+    <div style="border: 2px solid black">
+        GAME SCORES
+        <div id="scoreBoard"></div>
+        <div>
+            <button onclick="removeAll()">REMOVE ALL</button>
+            <button onclick="removeOdd()">REMOVE ODD</button>
+            <button onclick="removeEven()">REMOVE EVEN</button>
+            <button onclick="removeLast()">REMOVE LAST</button>
+        </div>
+    </div>
+
+    <script>
+        var input = document.getElementById('input');
+        var min = document.getElementById('min');
+        var max = document.getElementById('max');
+        // var scoreBoard = document.getElementById('scoreBoard');
+        // var p = document.createElement('p');
+        // scoreBoard.appendChild(p);
+        var arr = [];
+        var count = 1;
+
+        function add(x){
+            input.textContent += x;
+            // console.log(input.textContent)
+        }
+        console.log(input.textContent)
+        var num = +input.textContent;
+        // console.log(num)
+        function enter(){
+            arr.push(num);
+            input.textContent = '';
+            console.log(arr)
+            answer(arr);
+        }
+        function answer(arr){
+
+        }
+    </script>
+</body>
+</html>

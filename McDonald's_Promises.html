@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McDonald's</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .pop_up{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 25%;
+            height: fit-content;
+            /* border : 2px solid blue; */
+            text-align: center;
+        }
+        .oid{
+            border : 2px solid blue;
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: fit-content;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'order'>
+        Name : <input id = 'name' type="text">
+        <button onclick="order()">Order Food</button>
+    </div>
+    <script>
+        var body = document.body;
+        var nameArr = [];
+        var orderID = '';
+        var orderIdNo = 0;
+        var symbol = ['!' ,'@', '#', '$', '%', '&', '*'];
+        function order(){
+            var name = document.querySelector('#name');
+            nameArr.push(name.value);
+            body.innerHTML = '';
+            let form = document.createElement('form');
+            form.innerHTML = `<form>
+                <input type="checkbox" class = 'food1' id = 'food1' name = 'food1'>
+                <label for="food1">Small Size Pizza</label><br>
+                <input type="checkbox" class = 'food2' id = 'food2' name = 'food2'>
+                <label for="food2">Medium Size Pizza</label><br>
+                <input type="checkbox" class = 'food3' id = 'food3' name = 'food3'>
+                <label for="food3">Large Size Pizza</label><br>
+                <button id = 'submit'>Submit</button>
+            </form>`;
+            body.append(form);
+            var submit = document.getElementById('submit');
+            submit.setAttribute('onclick', 'submit1()');
+        }
+
+        function submit1(){
+            //console.log(nameArr);
+            let arrList = [];
+            for(let i = 1; i <= 3; i++){
+                let list = document.querySelector(`.food${i}`);
+                if(list.checked == true){
+                    arrList.push(list.name);
+                }
+            }
+            // console.log(arrList);
+            body.innerHTML = '';
+            let parentDiv = document.createElement('div');
+            parentDiv.setAttribute('class', 'pop_up');
+            let headDiv = document.createElement('div');
+            headDiv.innerHTML = `Hello ${nameArr[0]}! Thank you for ordering. Following are the fodd that you have ordered coming on your way...`;
+            parentDiv.append(headDiv);
+            nameArr = [];
+            for(let i = 0; i < arrList.length; i++){
+                let divf = document.createElement('div');
+                divf.innerHTML = arrList[i];
+                parentDiv.append(divf);
+            }
+            let oidDiv = document.createElement('div');
+            oidDiv.setAttribute('class', 'oid');
+            let temp = orderIdNo;
+            temp++;
+            let symi = Math.floor(Math.random() * 7);
+            orderID = `${temp}MASAI${symbol[symi]}`;
+            let temp1 = 
+            // console.log(orderID);
+            oidDiv.innerHTML = `Your order ID is - <br> ${orderID}`;
+
+            body.append(parentDiv, oidDiv);
+        }
+          
+    </script>
+</body>
+</html>
