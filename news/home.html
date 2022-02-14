@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body > div:first-child{
+            border: 2px solid black;
+            margin: 1% 2% 3% 2%;
+            text-align: right;
+            font-size: 125%;
+            padding: 1%;
+        }
+        a{
+            margin-right: 3%;
+        }
+        #random{
+            /* border: 2px solid green; */
+            text-align: center;
+            width: 40%;
+            margin: auto;
+        }
+        #random div img{
+            width: 100%;
+            height: 400px;
+            /* overflow: hidden; */
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="home.html">Home</a>
+        <a href="search.html">Search</a>
+    </div>
+    <div id = 'random'></div>
+</body>
+<script>
+    let random = document.getElementById('random');
+    let url = 'https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=cd152b6ee7ee40399543df634449beae';
+    // let num = 0;
+    fetch(url)
+    .then(response => {
+        // console.log(response.json())
+        response.json().then(res => {
+            let top = res.articles;
+            console.log(res.articles);
+            let div = document.createElement('div');
+            div.setAttribute('class', 'top_news');
+            div.innerHTML = `<h1>${top[3].title}</h1><p>${top[3].author}</p><img src = '${top[3].urlToImage}'/><h4>${top[3].description}</h4>`;
+            random.append(div);
+        })
+    })
+</script>
+</html>

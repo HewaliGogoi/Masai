@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Search</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body > div:first-child{
+            border: 2px solid black;
+            margin: 1% 2% 1% 2%;
+            text-align: right;
+            font-size: 125%;
+            padding: 1%;
+        }
+        a{
+            margin-right: 3%;
+        }
+        body > div:nth-child(2){
+            margin: 2%;
+        }
+        #search{
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            grid-gap: 2%;
+            margin: 2% 0%;
+            justify-items: center;
+        }
+        .box{
+            width: 70%;
+        }
+        .box img{
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <a href="home.html">Home</a>
+        <a href="search.html">Search</a>
+    </div>
+    <div>
+        <input id = 'topic' type="text">
+        <button id = 'btn'>Search</button>
+    </div>
+    <div id = 'search'></div>
+</body>
+<script>
+    let url = 'https://newsapi.org/v2/everything?';
+    let topic = document.getElementById('topic');
+    let api = '&from=2022-01-14&sortBy=publishedAt&apiKey=cd152b6ee7ee40399543df634449beae';
+    let btn = document.getElementById('btn');
+    let search = document.getElementById('search');
+    btn.addEventListener('click', news);
+    function news(){
+        let data = fetch(`${url}q=${topic.value}${api}`);
+        search.innerHTML = '';
+        data.then(response => {
+            // console.log(response.json());
+            response.json().then(res => {
+                console.log(res.articles);
+                let newsCard = res.articles;
+                newsCard.forEach(element => {
+                    console.log(element);
+                    let div = document.createElement('div');
+                    div.setAttribute('class', 'box');
+                    div.innerHTML = `<h5>${element.title}</h5><p>${element.author}</p><img src = '${element.urlToImage}'/><h5>${element.description}</h5>`;
+                    search.append(div);
+                });
+            })
+        })
+    }
+</script>
+</html>
