@@ -26,12 +26,14 @@
         h1, h2{
             margin : 2%;
         }
-        body div:nth-child(4){
+        body div:nth-child(3){
             display: flex;
             justify-content: center;
+            border: 2px solid black;
         }
-        body div:nth-child(4) img{
-            width: 15%;
+        body div:nth-child(3) img{
+            width: 50%;
+            height: 300px;
             /* border: 2px solid black; */
         }
         #movies{
@@ -59,10 +61,10 @@
         <a href="">Sign Up</a>
     </div>
     <h1>Home Page</h1>
-    <h2>Movie List</h2>
     <div>
         <img src="" id = 'img' alt="">
     </div>
+    <h2>Movie List</h2>
     <div id = 'movies'></div>
 </body>
 <script>
@@ -91,9 +93,8 @@
     { name: "Godfather", release_date: "24th Mar,1972", poster: "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/judas-and-the-black-messiah-1620077373.jpg?crop=1xw:1xh;center,top&resize=480:*", IMDB_rating: 10 }];
 
     let div = document.getElementById('movies');
-    let i = 0;
     movies.forEach((element) => {
-        console.log(element.name);
+        console.log(element);
         let innerDiv = document.createElement('div');
         let img = document.createElement('img')
         img.src = element.poster;
