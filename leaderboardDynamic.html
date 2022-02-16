@@ -53,7 +53,8 @@
             margin-left: 40%;
         }
         #min, #max{
-            width: 100%;
+            width: fit-content;
+            min-width: 100%;
             height: 70%;
             font-size: 150%;
             font-weight: 500;
@@ -126,24 +127,34 @@
         body > div:nth-child(2) div{
             /* border: 2px solid black; */
             width: 30%;
-            margin: 65% auto 0% auto;
+            margin: auto;
+        }
+        body > div:nth-child(2) button:first-child{
+            margin-top: 45%;
         }
         body > div:nth-child(2) button{
             width: 100%;
             height: 50px;
-            margin: 12% 0% 0% 0%;
+            margin-top: 10%;
             background-color: black;
             color: white;
             font-size: 70%;
         }
         #scoreBoard{
             /* border: 2px solid black; */
-            margin: 3% auto;
+            margin: 0% auto;
             font-size: 70%;
+            min-height: 300px;
+            max-height: 300px;
+            overflow: scroll;
+            width: 200px;
         }
         #scoreBoard > p{
             /* border: 2px solid blue; */
-            padding-top: 3%;
+            padding-top: 5px;
+        }
+        @media screen {
+            
         }
     </style>
 </head>
@@ -152,7 +163,7 @@
         <p>TOTAL</p>
         <div id = 'total'></div>
         <div>
-            <div class = 'Min'><button value = 'Infinity' id = 'min'></button>MIN</div>
+            <div class = 'Min'><button id = 'min'></button>MIN</div>
             <div class = 'Max'><button id = 'max'></button>MAX</div>
         </div>
         <div id = 'score'>
@@ -185,12 +196,11 @@
     </div>
 
     <script>
+        var total = document.getElementById('total');
         var input = document.getElementById('input');
         var min = document.getElementById('min');
         var max = document.getElementById('max');
-        // var scoreBoard = document.getElementById('scoreBoard');
-        // var p = document.createElement('p');
-        // scoreBoard.appendChild(p);
+        var scoreBoard = document.getElementById('scoreBoard');
         var arr = [];
         var count = 1;
 
@@ -198,17 +208,71 @@
             input.textContent += x;
             // console.log(input.textContent)
         }
-        console.log(input.textContent)
-        var num = +input.textContent;
-        // console.log(num)
-        function enter(){
-            arr.push(num);
-            input.textContent = '';
-            console.log(arr)
-            answer(arr);
-        }
-        function answer(arr){
 
+        function enter(){
+            var num = +input.textContent;
+            // console.log(input.textContent);
+            arr.push(num);
+            console.log(arr);
+            input.textContent = '';
+            // console.log(arr)
+            display(arr);
+        }
+        function display(arr){
+            let minimum = +Infinity;
+            let maximum = -Infinity;
+            let sum = 0;
+            scoreBoard.innerHTML = '';
+            arr.forEach((element, i) => {
+                if(element > maximum){
+                    maximum = element;
+                }
+                if(element < minimum){
+                    minimum = element;
+                }
+                sum += element;
+                i++;
+                let p = document.createElement('p');
+                p.innerHTML = `Game ${i} - ${element}`;
+                scoreBoard.append(p);
+            });
+            if(minimum < +Infinity){
+                min.innerText = minimum;
+            }else{
+                min.innerText = '-';
+            }
+            if(maximum > -Infinity){
+                max.innerText = maximum;
+            }else{
+                max.innerText = '-';
+            }
+            total.innerText = sum;
+        }
+        function removeAll(){
+            arr = [];
+            display(arr);
+        }
+        function removeOdd(){
+            let even = [];
+            for(let i = 0; i < arr.length; i++){
+                if(i % 2 != 0){
+                    even.push(arr[i]);
+                }
+            }
+            display(even);
+        }
+        function removeEven(){
+            let odd = [];
+            for(let i = 0; i < arr.length; i++){
+                if(i % 2 == 0){
+                    odd.push(arr[i]);
+                }
+            }
+            display(odd);
+        }
+        function removeLast(){
+            arr.pop();
+            display(arr);
         }
     </script>
 </body>
