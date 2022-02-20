@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bozaz</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        #main{
+            display: flex;
+            justify-content: space-between;
+        }
+        body{
+            padding: 3rem 6rem;
+        }
+        #left{
+            /* border: 2px solid red; */
+            width: 20rem;
+            display : flex;
+            flex-direction: column;
+        }
+        #left label:first-child, #right h1{
+            /* border: 2px solid green; */
+            font-size: xx-large;
+            font-weight: bold;
+            padding-bottom: 1rem;
+            margin-top: 0rem;
+            color: rgb(10, 161, 199);
+        }
+        #left label, table{
+            /* border: 2px solid blue; */
+            font-size: large;
+            margin-top: 1rem;
+        }
+        #left select, #left input, #left textarea{
+            /* border: 2px solid blue; */
+            margin-top: 1rem;
+            font-size: small;
+            padding: 0.6rem 0.5rem;
+            max-width: 100%;
+        }
+        #left button{
+            width: 5rem;
+            height: 2.5rem;
+            margin-top: 2rem;
+            background-color: blue;
+            color: white;
+        }
+        #right{
+            /* border: 2px solid rgb(135, 214, 7); */
+            width: 55rem;
+            overflow-y: scroll;
+            max-height: 30rem;
+        }
+        table{
+            /* border: 2px solid red; */
+            width: 50rem;
+        }
+        tr{
+            border-top: 1px solid grey;
+        }
+        #table tr > th{
+            padding-bottom: 0.6rem;
+        }
+        #table tr > td{
+            /* border: 2px solid rgb(167, 164, 1); */
+            margin-top: 1rem;
+            padding: 0.5rem 0.5rem;
+
+        }
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="left">
+            <label for="category">Add Product</label>
+            <label for="category">Category</label>
+            <select name="category" id="category" placeholder="Home Appliances"><option value="Electronics">Electronics</option><option value="Furniture">Furniture</option><option value="Home appliance">Home appliance</option><option value="Books">Books</option></select>
+            <label for="title">Title</label>
+            <input id = 'title' type="text">
+            <label for="description">Description</label>
+            <textarea name="" id="description" cols="30" rows="10"></textarea>
+            <label for="price">Price</label>
+            <input id = 'price' type="text">
+            <button onclick="submit()">Add</button>
+        </div>
+        <div id="right">
+            <h1>Product Info</h1>
+            <table id = 'table'>
+                <tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function submit(){
+            let category = document.getElementById('category').value;
+            let title = document.getElementById('title').value;
+            let description = document.getElementById('description').value;
+            let price = document.getElementById('price').value;
+            
+            let obj1 = new MyConstFunc(category, title, description, price);
+            console.log(obj1);
+
+            let data = localStorage.getItem('bozaz'); // bozaz is the key name
+            // console.log(data)
+            let newData; 
+            
+            document.getElementById('category').value = 'Home appliances';
+            document.getElementById('title').value = '';
+            document.getElementById('description').value = '';
+            document.getElementById('price').value = '';
+            if(data === null){
+                localStorage.setItem('bozaz', JSON.stringify([]));
+                newData = JSON.parse(localStorage.getItem('bozaz'));
+                newData.push(obj1);
+                localStorage.setItem('bozaz', JSON.stringify(newData));
+                render(newData);
+                
+                console.log(newData);
+            }else{
+                // let obj2 = new MyConstFunc(category, title, description, price);
+                newData = JSON.parse(localStorage.getItem('bozaz'));
+                newData.push(obj1);
+                localStorage.setItem('bozaz', JSON.stringify(newData));
+                render(newData);
+            }
+        }
+        function MyConstFunc(c, t, d, p){
+            this.cat = c;
+            this.tit = t;
+            this.des = d;
+            this.pri = p;
+        }
+
+        let table = document.getElementById('table');
+        let count = 0;
+        function render(d){
+            d.forEach(obj => {
+                count++;
+                let tr = document.createElement('tr');
+                tr.innerHTML = `<td>${count}</td>
+                            <td>${obj.cat}</td>
+                            <td>${obj.tit}</td>
+                            <td>${obj.des}</td>
+                            <td>${obj.pri}</td>`;
+                table.append(tr);
+            });
+        }
+    </script>
+</body>
+</html>
