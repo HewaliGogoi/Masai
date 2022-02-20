@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youtube</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: sans-serif;
+            background-color: rgba(40,40,40,255);
+        }
+        #header{
+            /* border: 2px solid red; */
+            display: flex;
+            justify-content:space-between;
+        }
+        #header > div:first-child{
+            width: 7rem;
+            margin-right: 4rem;
+        }
+        #header img{
+            width: 150px;
+            height: 40px;
+            align-self: left;
+        }
+        #header > div:nth-child(2){
+            /* border: 2px solid green; */
+            align-items: center;
+            width: 20rem;
+        }
+        #header > div:nth-child(3){
+            /* border: 2px solid yellow; */
+            justify-content: right;
+        }
+        .left{
+            display: flex;
+            flex-direction: column;
+        }
+        .left a{
+            text-decoration: none;
+            color: white;
+        }
+        #main{
+            display: grid;
+            grid-template-columns: 0.5fr 3.5fr;
+        }
+        .right{
+            border: 2px solid yellow;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            justify-items: center;
+            color : white;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'header'>
+        <div><img src="https://www.logo.wine/a/logo/YouTube/YouTube-White-Full-Color-Dark-Background-Logo.wine.svg" alt=""></div>
+        <div><input id = 'input' type="text" placeholder="Search"><button id = 'btn' onclick="button()"><i class="fa-solid fa-magnifying-glass"></i></button></div>
+        <div><a href="">SIGN IN</a></div>
+    </div>
+    <div id = 'main'>
+        <div class="left">
+            <a href=""><i class="fa-solid fa-house"></i>Home</a>
+            <a href=""><i class="fa-solid fa-compass"></i>Explore</a>
+            <a href=""><i class="fa-brands fa-youtube-square"></i>Subscriptions</a>
+            <hr>
+            <a href=""><i class="fa-solid fa-photo-film"></i>Library</a>
+            <a href=""><i class="fa-solid fa-clock-rotate-left"></i>History</a>
+        </div>
+        <div class="right"></div>
+    </div>
+    <script src="https://kit.fontawesome.com/a982eeda10.js" crossorigin="anonymous"></script>
+    <script>
+        let btn = document.getElementById('btn');
+        let key = 'AIzaSyDlynigYLuF6WXRRrWbRp70LZIuf6YjiY8';
+        let url;
+        let right = document.querySelector('.right');
+        // console.log(url);
+        let data = localStorage.getItem('id');
+        if(data == null){
+            // url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=most%20popular%20videos%20in%20India&regionCode=India&key=${key}`;
+            url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=most%20popular%20videos%20in%20India&type=video&key=${key}`;
+            fetchData(url);
+        }
+        function button(){
+            let input = document.getElementById('input').value;
+            url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=4&q=${input}&type=video&key=${key}`;
+            fetchData(url); 
+        }
+        async function fetchData(url){
+            let d1 = await fetch(url);
+            // console.log(d1);
+            let res = await d1.json();
+            let resItem = res.items;
+            console.log(resItem);
+            display(resItem);
+        }
+        function display(videos){
+            right.innerHTML = '';
+            videos.forEach(vdo => {
+                let {id : {videoId}, snippet : {channelTitle, description, thumbnails : {default : {url}}}} = vdo;
+                // console.log(videoId, channelTitle, description, url);
+                let div = document.createElement('div');
+                div.setAttribute('class', 'vCard');
+                div.innerHTML = `<img src = '${url}'/><h5>${channelTitle}</h5>`;
+                div.onclick = function(){
+                    setId(vdo);
+                }
+                right.append(div);
+                // console.log(url)    
+            });
+        }
+        function setId(vdo){
+            console.log(1);
+            localStorage.setItem('id', JSON.stringify(vdo));
+            location.href = 'file:///E:/MyFolder/Tech/HTML_&_CSS/Unit_4_Assignments/youtube/search.html';
+        }
+    </script>
+</body>
+</html>

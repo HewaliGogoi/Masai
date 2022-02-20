@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            font-family: sans-serif;
+            background-color: rgba(40,40,40,255);
+        }
+        #header{
+            /* border: 2px solid red; */
+            display: flex;
+            justify-content:space-between;
+        }
+        #header > div:first-child{
+            width: 7rem;
+            margin-right: 4rem;
+        }
+        #header img{
+            width: 150px;
+            height: 40px;
+            align-self: left;
+        }
+        #header > div:nth-child(2){
+            /* border: 2px solid green; */
+            align-items: center;
+            width: 20rem;
+        }
+        #header > div:nth-child(3){
+            /* border: 2px solid yellow; */
+            justify-content: right;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'header'>
+        <div><img src="https://www.logo.wine/a/logo/YouTube/YouTube-White-Full-Color-Dark-Background-Logo.wine.svg" alt=""></div>
+        <div><input type="text" placeholder="Search"><button><i class="fa-solid fa-magnifying-glass"></i></button></div>
+        <div><a href="">SIGN IN</a></div>
+    </div>
+    <div class = 'main'>
+        <div id="left"></div>
+        <div id="right"></div>
+    </div>
+    <script src="https://kit.fontawesome.com/a982eeda10.js" crossorigin="anonymous"></script>
+    <script>
+        let left = document.getElementById('left');
+        
+        let data =JSON.parse(localStorage.getItem('id'));
+        // console.log(data);
+        let {id : {videoId}, snippet : {channelTitle, description, thumbnails : {default : {url}}}} = data;
+        let div = document.createElement('div');
+        div.setAttribute('class', 'iframe');
+        div.innerHTML = `<iframe width="920" height="530" src="https://www.youtube.com/embed/${videoId}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        left.append(div);
+    </script>
+</body>
+</html>
