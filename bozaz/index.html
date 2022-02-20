@@ -32,10 +32,16 @@
             margin-top: 0rem;
             color: rgb(10, 161, 199);
         }
+        #left label:first-child:hover,  #right h1:hover{
+            font-size: 2.1rem;
+        }
         #left label, table{
             /* border: 2px solid blue; */
             font-size: large;
             margin-top: 1rem;
+        }
+        #left label:hover{
+            font-size: larger;
         }
         #left select, #left input, #left textarea{
             /* border: 2px solid blue; */
@@ -44,6 +50,9 @@
             padding: 0.6rem 0.5rem;
             max-width: 100%;
         }
+        #left select:hover, #left input:hover, #left textarea:hover{
+            border: 2px solid grey;
+        }
         #left button{
             width: 5rem;
             height: 2.5rem;
@@ -51,28 +60,42 @@
             background-color: blue;
             color: white;
         }
+        #left button:hover{
+            width: 5.5rem;
+            height: 3rem;
+            font-size: small;
+        }
         #right{
             /* border: 2px solid rgb(135, 214, 7); */
             width: 55rem;
             overflow-y: scroll;
-            max-height: 30rem;
+            max-height: 40rem;
         }
         table{
             /* border: 2px solid red; */
             width: 50rem;
+            text-align: left;
         }
-        tr{
-            border-top: 1px solid grey;
-        }
-        #table tr > th{
+        th{
             padding-bottom: 0.6rem;
+            /* border-top: 1px solid grey; */
         }
-        #table tr > td{
+        th:hover{
+            font-size: larger;
+        }
+        td:first-child{
+            padding: 0rem;
+        }
+        td{
             /* border: 2px solid rgb(167, 164, 1); */
             margin-top: 1rem;
-            padding: 0.5rem 0.5rem;
-
+            padding: 0.5rem 0.5rem 0.5rem 0rem;
+            border-top: 1px solid #cecece;
         }
+        td:hover{
+            border: 2px solid grey;
+        }
+
     </style>
 </head>
 <body>
@@ -80,7 +103,12 @@
         <div id="left">
             <label for="category">Add Product</label>
             <label for="category">Category</label>
-            <select name="category" id="category" placeholder="Home Appliances"><option value="Electronics">Electronics</option><option value="Furniture">Furniture</option><option value="Home appliance">Home appliance</option><option value="Books">Books</option></select>
+            <select name="category" id="category">
+                <option value="Electronics">Electronics</option>
+                <option value="Furniture">Furniture</option>
+                <option value="Home appliance">Home appliance</option>
+                <option value="Books">Books</option>
+            </select>
             <label for="title">Title</label>
             <input id = 'title' type="text">
             <label for="description">Description</label>
@@ -103,6 +131,8 @@
         </div>
     </div>
     <script>
+        let table = document.getElementById('table');
+        let count;
         function submit(){
             let category = document.getElementById('category').value;
             let title = document.getElementById('title').value;
@@ -116,7 +146,7 @@
             // console.log(data)
             let newData; 
             
-            document.getElementById('category').value = 'Home appliances';
+            document.getElementById('category').value = 'Electronics';
             document.getElementById('title').value = '';
             document.getElementById('description').value = '';
             document.getElementById('price').value = '';
@@ -125,15 +155,25 @@
                 newData = JSON.parse(localStorage.getItem('bozaz'));
                 newData.push(obj1);
                 localStorage.setItem('bozaz', JSON.stringify(newData));
+                count = 0;
                 render(newData);
-                
                 console.log(newData);
             }else{
                 // let obj2 = new MyConstFunc(category, title, description, price);
                 newData = JSON.parse(localStorage.getItem('bozaz'));
                 newData.push(obj1);
                 localStorage.setItem('bozaz', JSON.stringify(newData));
+                table.innerHTML = '';
+                table.innerHTML = `<tr>
+                    <th>#</th>
+                    <th>Category</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                </tr>`;
+                count = 0;
                 render(newData);
+
             }
         }
         function MyConstFunc(c, t, d, p){
@@ -143,8 +183,6 @@
             this.pri = p;
         }
 
-        let table = document.getElementById('table');
-        let count = 0;
         function render(d){
             d.forEach(obj => {
                 count++;
