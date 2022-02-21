@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+    <style>
+        #input{
+            /* border: 2px solid red; */
+            text-align: center;
+            width: 50rem;
+            margin: auto;
+        }
+        #input input{
+            width: 15rem;
+            height: 2rem;
+            margin: 1rem 2rem;
+        }
+        #item:hover, #quantity:hover{
+            border: 2px solid grey;
+        }
+        #input button{
+            width: 5rem;
+            height: 2rem;
+            padding: 0;
+            margin: 1rem 2rem;
+        }
+        #input button:hover, .btn:hover{
+            /* border: 2px solid black; */
+            background-color: grey;
+            color: white;
+        }
+        #main{
+            /* border: 2px solid black; */
+            display: grid;
+            grid-template-columns: auto auto auto;
+            width: 30rem;
+            margin: auto;
+            justify-content: space-around;
+        }
+        #main div{
+            /* border: 2px solid black; */
+            width: 10rem;
+        }
+        h3:hover{
+            color: grey;
+        }
+        .list{
+            /* border: 2px solid red; */
+            list-style: none;
+            margin: 0.5rem;
+        }
+        .list:hover{
+            list-style: none;
+            border: 2px solid grey;
+        }
+        .btn{
+            /* border: 2px solid green; */
+            width: 5rem;
+            margin: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div id = 'input'>
+        <input id = 'item' placeholder = 'Name of the item' type="text">
+        <input id = 'quantity' placeholder = 'Enter the quantity in kg' type="number">
+        <button onclick="form1()">Add to Cart</button>
+    </div>
+    <div id = 'main'>
+        <div><h3>Items</h3></div>
+        <div><h3>Quantity</h3></div>
+        <div></div>
+    </div>
+    <script>
+        function form1(){
+            let item = document.getElementById('item').value;
+            let quantity = document.getElementById('quantity').value;
+            // console.log(typeof(+quantity));
+            let data = localStorage.getItem('id');
+            let obj = new MyObj(item, quantity);
+            console.log(obj);
+            if(data == null){
+                localStorage.setItem('id', JSON.stringify([]));
+                data = JSON.parse(localStorage.getItem('id'));
+                data.push(obj);
+                localStorage.setItem('id', JSON.stringify(data));
+                console.log(data);
+                render(data);
+                document.getElementById('item').value = '';
+                document.getElementById('quantity').value = '';
+            }else{
+                data = JSON.parse(localStorage.getItem('id'));
+                data.push(obj);
+                localStorage.setItem('id', JSON.stringify(data));
+                console.log(data);
+                render(data);
+                document.getElementById('item').value = '';
+                document.getElementById('quantity').value = '';
+            }
+        }
+        function MyObj(i, q){
+            this.item = i;
+            this.quantity = q;
+        }
+        function render(d){
+            let main = document.getElementById('main');
+            main.innerHTML = `<div><h3>Items</h3></div>
+                        <div><h3>Quantity</h3></div>
+                        <div></div>`;
+            d.forEach((obj1, index) => {
+                let li1 = document.createElement('li');
+                li1.setAttribute('class', 'list');
+                let li2 = document.createElement('li');
+                li2.setAttribute('class', 'list');
+                let btn = document.createElement('button');
+                btn.setAttribute('class', 'btn');
+                btn.innerText = `Delete`;
+                // console.log(btn)
+                li1.innerHTML = `${obj1.item}`;
+                li2.innerHTML = `${obj1.quantity}`;
+                btn.addEventListener('click', () => {
+                    del(index, d);
+                })
+                main.append(li1, li2, btn);
+            });
+        }
+        function del(index, d){
+            // console.log(index);
+            d.splice(index, 1);
+            localStorage.setItem('id', JSON.stringify(d));
+            render(d);
+        }
+    </script>
+</body>
+</html>
