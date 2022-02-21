@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masai Food</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body{
+            padding: 1rem;
+        }
+        body > div:first-child{
+            font-size: xx-large;
+            font-weight: 1000;
+            margin-bottom: 2rem;
+            color:grey
+        }
+        body > div:first-child:hover{
+            font-size: 2.5rem;
+            color: red;
+            margin-bottom: 2rem;
+        }
+        select{
+            width: 15rem;
+            height: 2rem;
+        }
+        select:hover{
+            border: 2px solid grey;
+        }
+        button{
+            height: 2rem;
+            width: 5rem;
+        }
+        button:hover{
+            border: 1px solid black;
+            background-color: grey;
+            color: white;
+        }
+        #main{
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            width: 100vw;
+        }
+        .card{
+            margin: 2rem;
+            text-align: center;
+            padding: 0.5rem;
+            border: 2px solid #cecece;
+            border-radius: 1rem;
+        }
+        .card:hover{
+            border: 2px solid black;
+        }
+        .card img{
+            width: 100%;
+            height: 15rem;
+            border-radius: 1rem;
+        }
+        .card img:hover{
+            height: 16rem;
+        }
+        h3:hover{
+            font-size: 1.3rem;
+            color:blue;
+        }
+    </style>
+</head>
+<body>
+    <div>FOOD SHOOD</div>
+    <select id="select">
+    </select>
+    <button onclick="search()">Search</button>
+    <div id = 'main'></div>
+    <script>
+        let url = 'https://www.themealdb.com/api/json/v1/1/categories.php';
+        let select = document.getElementById('select');
+        localStorage.setItem('main', JSON.stringify([]));
+        async function getFood(){
+            let main = JSON.parse(localStorage.getItem('main'));
+            let data = await fetch(url);
+            data = await data.json();
+            let category = data.categories;
+            main.push(category);
+            // console.log(main);
+            localStorage.setItem('main', JSON.stringify(main));
+            renderList(category);
+        }
+        getFood();
+        function renderList(cat){
+            // console.log(cat);
+            cat.forEach(food => {
+                let option = document.createElement('option');
+                option.value = `${food.strCategory}`;
+                option.innerText = `${food.strCategory}`;
+                select.append(option);
+            });
+        }
+        
+        async function search(){
+            let val = select.value;
+            let url1 = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${val}`;
+            // console.log(val);
+            let data = await fetch(url1);
+            data = await data.json();
+            let meal = data.meals;
+            // console.log(meal);
+            render(meal);
+        }
+        let main = document.getElementById('main');
+        function render(meal){
+            main.innerHTML = '';
+            meal.forEach(food => {
+                let card = document.createElement('div');
+                card.setAttribute('class', 'card');
+                // console.log(food)
+                let img = document.createElement('img');
+                let h1 = document.createElement('h3');
+                img.src = `${food.strMealThumb}`;
+                h1.innerHTML = `${food.strMeal}`;
+                card.append(img, h1);
+                main.append(card);
+            });
+        }
+    </script>
+</body>
+</html>
